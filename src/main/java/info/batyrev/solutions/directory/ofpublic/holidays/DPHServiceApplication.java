@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class PublicHolidayLibApplication {
+public class DPHServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PublicHolidayLibApplication.class, args);
+		SpringApplication.run(DPHServiceApplication.class, args);
 	}
 
 	@Bean
