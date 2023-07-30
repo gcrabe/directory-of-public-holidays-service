@@ -2,6 +2,8 @@ package info.batyrev.solutions.directory.ofpublic.holidays.utils;
 
 public class Constants {
 
+    public static final String BUILD_VERSION = "0.0.1";
+
     String[] arrayKZ = new String[] {
             "01-01-23",
             "02-01-23",

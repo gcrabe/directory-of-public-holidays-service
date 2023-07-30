@@ -1,17 +1,35 @@
 package info.batyrev.solutions.directory.ofpublic.holidays.webapp;
 
+import ch.qos.logback.core.util.SystemInfo;
+import info.batyrev.solutions.directory.ofpublic.holidays.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.management.ManagementFactory;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class HealthCheckController {
 
-    private static final String HEALTH_CHECK_OK_MESSAGE = "Health check status: OK";
-
     @GetMapping(value = "/")
     public ResponseEntity<?> index() {
-        return new ResponseEntity<>(HEALTH_CHECK_OK_MESSAGE, HttpStatus.OK);
+        String javaVendor = SystemInfo.getJavaVendor();
+        String javaVersion = Runtime.version().toString();
+        String osName = System.getProperty("os.name");
+        long uptime = ManagementFactory.getRuntimeMXBean().getUptime();
+
+        Map<String, String> resultContainer = new HashMap<>();
+        resultContainer.put("java_vendor", javaVendor);
+        resultContainer.put("java_version", javaVersion);
+        resultContainer.put("os", osName);
+        resultContainer.put("uptime", String.valueOf(uptime));
+        resultContainer.put("build", Constants.BUILD_VERSION);
+        resultContainer.put("health_check_status", "OK");
+
+        return new ResponseEntity<>(resultContainer.toString(), HttpStatus.OK);
     }
 }
